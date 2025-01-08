@@ -1,13 +1,22 @@
 import { Module } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: `.env.${process.env.APP_ENV}`,
+    }),
     TypeOrmModule.forRootAsync({
-      useFactory: (configService) => ({
-        ...configService.get('database'),
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        type: 'sqlite',
+        database: './dev.db',
+        synchronize: configService.get('APP_ENV') === 'local' ? true : false,
+        logging: configService.get('APP_ENV') === 'local' ? true : false,
+        autoLoadEntities: true,
       }),
       inject: [ConfigService],
     }),
@@ -15,7 +24,7 @@ import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-clas
   providers: [],
 })
 export class DatabaseModule {
-  static forRoot(models: EntityClassOrSchema[]) {
+  static forFeature(models: EntityClassOrSchema[]) {
     return TypeOrmModule.forFeature(models);
   }
 }
