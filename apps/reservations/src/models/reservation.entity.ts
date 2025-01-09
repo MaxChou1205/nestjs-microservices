@@ -3,7 +3,7 @@ import { AbstractEntity } from '@app/common';
 
 @Entity()
 export class Reservation extends AbstractEntity<Reservation> {
-  @Column()
+  @Column({ default: () => 'CURRENT_TIMESTAMP' })
   timestamp: Date;
 
   @Column()
@@ -12,8 +12,8 @@ export class Reservation extends AbstractEntity<Reservation> {
   @Column()
   endDate: Date;
 
-  @Column()
-  userId: number;
+  // @Column()
+  // userId: number;
 
   @Column()
   invoiceId: string;
