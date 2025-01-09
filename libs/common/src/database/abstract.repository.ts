@@ -11,7 +11,7 @@ export abstract class AbstractRepository<T extends AbstractEntity<T>> {
     protected readonly entityManager: EntityManager,
   ) {}
 
-  async create(entity: T): Promise<T> {
+  async create(entity: Partial<T>): Promise<Partial<T>> {
     return await this.entityManager.save(entity);
   }
 
