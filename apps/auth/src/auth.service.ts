@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
+import { TokenPayload } from './users/interfaces/token-payload.interface';
 
 @Injectable()
 export class AuthService {
@@ -11,7 +12,7 @@ export class AuthService {
   ) {}
 
   login(user: any, response: Response) {
-    const tokenPayload = {
+    const tokenPayload: TokenPayload = {
       userId: user.id,
       email: user.email,
     };
@@ -20,7 +21,7 @@ export class AuthService {
       secret: this.configService.get('JWT_SECRET'),
     });
 
-    response.cookie('nestjs-jwt', token, {
+    response.cookie('Authentication', token, {
       httpOnly: true,
       expires: new Date(Date.now() + 3600),
     });
