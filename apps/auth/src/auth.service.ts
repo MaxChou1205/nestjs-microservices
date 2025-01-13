@@ -25,5 +25,7 @@ export class AuthService {
       httpOnly: true,
       expires: new Date(Date.now() + 3600),
     });
+
+    return token;
   }
 }
