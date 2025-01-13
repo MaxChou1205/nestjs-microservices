@@ -12,8 +12,8 @@ export class Reservation extends AbstractEntity<Reservation> {
   @Column()
   endDate: Date;
 
-  // @Column()
-  // userId: number;
+  @Column()
+  userId: number;
 
   @Column()
   invoiceId: string;

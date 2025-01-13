@@ -10,8 +10,9 @@ export class ReservationsService {
     private readonly reservationsRepository: ReservationsRepository,
   ) {}
 
-  create(createReservationDto: CreateReservationDto) {
+  create(createReservationDto: CreateReservationDto, userId: number) {
     const reservation = new Reservation({
+      userId,
       ...createReservationDto,
     });
     return this.reservationsRepository.create(reservation);

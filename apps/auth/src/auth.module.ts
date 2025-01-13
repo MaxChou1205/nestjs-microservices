@@ -11,6 +11,7 @@ import { JwtStrategy } from './users/strageties/jwt.strategy';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: './apps/auth/.env',
     }),
     JwtModule.registerAsync({
       useFactory: (configService: ConfigService) => ({
