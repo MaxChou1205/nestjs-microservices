@@ -24,8 +24,6 @@ export class AuthService {
       secret: this.configService.get('JWT_SECRET'),
     });
 
-    console.log(token);
-
     response.cookie('Authentication', token, {
       httpOnly: true,
       expires: new Date(Date.now() + 3600),

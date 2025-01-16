@@ -8,4 +8,7 @@ export class User extends AbstractEntity<User> {
 
   @Column()
   password: string;
+
+  @Column({ type: 'simple-array' })
+  roles: string[];
 }
